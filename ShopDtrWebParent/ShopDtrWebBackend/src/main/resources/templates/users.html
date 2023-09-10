@@ -7,6 +7,8 @@
     <title>Shop DTR Admin</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/frontawesome/all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/stype.css}">
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
@@ -85,14 +87,20 @@
             <tbody>
                 <tr th:each="user: ${listUsers}">
                     <td>[[${user.id}]]</td>
-                    <td>[[${user.photos}]]</td>
+                    <td><span class="fas fa-portrait fa-2x icon-dark" ></span></td>
                     <td>[[${user.lastName}]]</td>
                     <td>[[${user.firstName}]]</td>
                     <td>[[${user.email}]]</td>
                     <td>[[${user.roles}]]</td>
-                    <td>[[${user.enable}]]</td>
                     <td>
-                        Edit &nbsp; Delete
+                        <a th:if="${user.enable} == true" class="fas fa-check-circle icon-green" href=""></a>
+                        <a th:if="${user.enable} == false" class="fas fa-check-circle icon-dark" href=""></a>
+                    </td>
+                    <td>
+                        <a class="fa-solid fa-pen-to-square icon-green fa-2x" th:href="@{'/users/edit/' + ${user.id}}"
+                        title="Edit this user"></a>
+                        &nbsp;
+                        <a class="fa-solid fa-trash icon-dark fa-2x" href=""></a>
                     </td>
                 </tr>
             </tbody>

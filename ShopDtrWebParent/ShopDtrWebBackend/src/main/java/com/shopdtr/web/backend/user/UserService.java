@@ -2,11 +2,13 @@ package com.shopdtr.web.backend.user;
 
 import com.shopdtr.common.Role;
 import com.shopdtr.common.User;
+import com.shopdtr.web.backend.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserService {
@@ -41,5 +43,13 @@ public class UserService {
     public boolean isEmailUnique(String email) {
         User userGetByEmail = userRepository.getUserByEmail(email);
         return userGetByEmail == null;
+    }
+
+    public User get(Integer id) throws UserNotFoundException {
+        try {
+            return userRepository.findById(id).get();
+        } catch (NoSuchElementException ex) {
+            throw new UserNotFoundException("Could not find any user with id " + id);
+        }
     }
 }
