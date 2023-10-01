@@ -2,15 +2,20 @@ package com.shopdtr.web.backend.user;
 
 import com.shopdtr.common.Role;
 import com.shopdtr.common.User;
+import com.shopdtr.web.backend.FileUploadUtils;
 import com.shopdtr.web.backend.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -38,9 +43,17 @@ public class UserController {
     }
 
     @PostMapping("/users/save")
-    public String saveUser(final User user, RedirectAttributes redirectAttributes) {
+    public String saveUser(final User user, RedirectAttributes redirectAttributes,
+                           @RequestParam("image") MultipartFile multipartFile) throws IOException {
+        if (!multipartFile.isEmpty()) {
+            String uploadDir = "user_photos/" + user.getId();
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            user.setPhotos(fileName);
+            userService.save(user);
+            FileUploadUtils.clearDir(uploadDir);
+            FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
+        }
         redirectAttributes.addFlashAttribute("message", "The user have been saved successfully.");
-        userService.save(user);
         return "redirect:/users";
     }
 
@@ -63,5 +76,27 @@ public class UserController {
         }
     }
 
+    @GetMapping("/users/delete/{id}")
+    public String deleteUser(@PathVariable(name = "id") Integer id,
+                           Model model,
+                           RedirectAttributes redirectAttributes) {
+        try {
+            userService.delete(id);
+            redirectAttributes.addFlashAttribute("message", "A user has been deleted successfully");
+        } catch (UserNotFoundException e) {
+            redirectAttributes.addFlashAttribute("message", e.getMessage());
+        }
+        return "redirect:/users";
+    }
 
+    @GetMapping("users/{id}/enabled/{status}")
+    public String updateUserEnableStatus(@PathVariable("id") Integer id,
+                                         @PathVariable("status") boolean enabled,
+                                         RedirectAttributes redirectAttributes) {
+        userService.updateUserEnableStatus(id, enabled);
+        String status = enabled ? "enabled" : "disabled";
+        String message = "The user Id " + id + " has been" + status;
+        redirectAttributes.addFlashAttribute("message", message);
+        return "redirect:/users";
+    }
 }

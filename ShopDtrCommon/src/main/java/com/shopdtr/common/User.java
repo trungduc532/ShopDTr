@@ -43,9 +43,6 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.enable = enable;
-        this.photos = photos;
-        this.roles = roles;
     }
 
     /**
@@ -64,5 +61,11 @@ public class User {
                 ", roles=" + roles +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if(id == null || photos == null) return "/images/default-avatar.jpg";
+        return "/user_photos/" + this.id + "/" + this.photos;
     }
 }

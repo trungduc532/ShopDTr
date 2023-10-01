@@ -7,10 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
@@ -30,9 +36,19 @@ public class UserService {
         return (List<Role>) roleRepository.findAll();
     }
 
-    public void save(final User user) {
-        encodePassword(user);
-        userRepository.save(user);
+    public User save(final User user) {
+        boolean isUpdatingUser = (user.getId() != null);
+        if (isUpdatingUser) {
+            final User userExisting = userRepository.findById(user.getId()).get();
+            if (user.getPassword().isEmpty()) {
+                user.setPassword(userExisting.getPassword());
+            } else {
+                encodePassword(user);
+            }
+        } else {
+            encodePassword(user);
+        }
+        return userRepository.save(user);
     }
 
     public void encodePassword(User user) {
@@ -40,9 +56,19 @@ public class UserService {
         user.setPassword(encodePassword);
     }
 
-    public boolean isEmailUnique(String email) {
+    public boolean isEmailUnique(Integer id, String email) {
         User userGetByEmail = userRepository.getUserByEmail(email);
-        return userGetByEmail == null;
+
+        if (userGetByEmail == null) return true;
+
+        // Check for case create new user
+        boolean isCreateNew = (id == null);
+        if (isCreateNew) {
+            return false;
+        } else {
+            if (userGetByEmail.getId() != id) return false;
+        }
+        return true;
     }
 
     public User get(Integer id) throws UserNotFoundException {
@@ -51,5 +77,31 @@ public class UserService {
         } catch (NoSuchElementException ex) {
             throw new UserNotFoundException("Could not find any user with id " + id);
         }
+    }
+
+    public void delete(Integer id) throws UserNotFoundException {
+        Long countById = userRepository.countById(id);
+        if (countById == null || countById == 0) {
+            throw new UserNotFoundException("Could not find any user with id " + id);
+        }
+        userRepository.deleteById(id);
+    }
+
+    public void updateUserEnableStatus(final Integer id, final boolean enable) {
+        userRepository.updateEnableStatus(id, enable);
+    }
+
+    public void testInputStream() throws IOException {
+        InputStream inputstream = new FileInputStream("C:\\Users\\Trung Duc\\Desktop\\ducVV.txt");
+
+        String text = "";
+        int data = inputstream.read();
+        while (data != -1) {
+            text = text + String.valueOf((char) data);
+            data = inputstream.read();
+        }
+        inputstream.close();
+        System.out.println(text);
+
     }
 }
