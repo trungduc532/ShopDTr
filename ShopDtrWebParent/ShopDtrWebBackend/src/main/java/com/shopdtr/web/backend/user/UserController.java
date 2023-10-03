@@ -3,8 +3,10 @@ package com.shopdtr.web.backend.user;
 import com.shopdtr.common.Role;
 import com.shopdtr.common.User;
 import com.shopdtr.web.backend.FileUploadUtils;
+import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -25,10 +27,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/users")
-    public String listUserPage(Model model) {
-        List<User> listUsers = userService.listUser();
-        model.addAttribute("listUsers", listUsers);
-        return "users";
+    public String listFirstPage(final Model model) {
+        return listByPage(1, model);
     }
 
     @GetMapping("/users/new_user")
@@ -53,7 +53,7 @@ public class UserController {
             FileUploadUtils.clearDir(uploadDir);
             FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
         } else {
-            if(user.getPhotos().isEmpty()) user.setPhotos(null);
+            if (user.getPhotos().isEmpty()) user.setPhotos(null);
             userService.save(user);
         }
         redirectAttributes.addFlashAttribute("message", "The user have been saved successfully.");
@@ -81,8 +81,7 @@ public class UserController {
 
     @GetMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Integer id,
-                           Model model,
-                           RedirectAttributes redirectAttributes) {
+                             RedirectAttributes redirectAttributes) {
         try {
             userService.delete(id);
             redirectAttributes.addFlashAttribute("message", "A user has been deleted successfully");
@@ -101,5 +100,23 @@ public class UserController {
         String message = "The user Id " + id + " has been" + status;
         redirectAttributes.addFlashAttribute("message", message);
         return "redirect:/users";
+    }
+    @GetMapping("users/page/{pageNum}")
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model) {
+        Page<User> page = userService.listByPage(pageNum);
+        List<User> listUsers = page.getContent();
+
+        // Show message footer page
+        long startCount = ((pageNum - 1) * page.getTotalPages() + 1);
+        long endCount = startCount - 1 + ConstantKey.USERS_PER_PAGE;
+        if(endCount > page.getTotalElements()) {
+            endCount = page.getTotalElements();
+        }
+        // Display list user to screen.
+        model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("startCount", startCount);
+        model.addAttribute("endCount", endCount);
+        model.addAttribute("listUsers", listUsers);
+        return "users";
     }
 }

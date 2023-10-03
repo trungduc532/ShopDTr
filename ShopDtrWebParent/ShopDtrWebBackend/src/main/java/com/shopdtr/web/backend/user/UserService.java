@@ -2,8 +2,12 @@ package com.shopdtr.web.backend.user;
 
 import com.shopdtr.common.Role;
 import com.shopdtr.common.User;
+import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +15,6 @@ import javax.transaction.Transactional;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -89,6 +92,12 @@ public class UserService {
 
     public void updateUserEnableStatus(final Integer id, final boolean enable) {
         userRepository.updateEnableStatus(id, enable);
+    }
+
+    public Page<User> listByPage(int pageNum) {
+        Pageable pageable =  PageRequest.of(pageNum - 1, ConstantKey.USERS_PER_PAGE);
+        Page<User> pageUser = userRepository.findAll(pageable);
+        return pageUser;
     }
 
     public void testInputStream() throws IOException {
