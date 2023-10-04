@@ -107,12 +107,14 @@ public class UserController {
         List<User> listUsers = page.getContent();
 
         // Show message footer page
-        long startCount = ((pageNum - 1) * page.getTotalPages() + 1);
+        long startCount = ((pageNum - 1) * ConstantKey.USERS_PER_PAGE + 1);
         long endCount = startCount - 1 + ConstantKey.USERS_PER_PAGE;
         if(endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
         // Display list user to screen.
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("currentPage", pageNum);
         model.addAttribute("totalItems", page.getTotalElements());
         model.addAttribute("startCount", startCount);
         model.addAttribute("endCount", endCount);
