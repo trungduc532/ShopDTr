@@ -7,6 +7,7 @@ import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -28,7 +29,7 @@ public class UserController {
 
     @GetMapping("/users")
     public String listFirstPage(final Model model) {
-        return listByPage(1, model);
+        return listByPage(1, model, "id", "asc");
     }
 
     @GetMapping("/users/new_user")
@@ -102,8 +103,10 @@ public class UserController {
         return "redirect:/users";
     }
     @GetMapping("users/page/{pageNum}")
-    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model) {
-        Page<User> page = userService.listByPage(pageNum);
+    public String listByPage(@PathVariable(name = "pageNum") int pageNum, Model model,
+                             @Param("sortField") String sortField,
+                             @Param("sortDir") String sortDir) {
+        Page<User> page = userService.listByPage(pageNum, sortField, sortDir);
         List<User> listUsers = page.getContent();
 
         // Show message footer page
@@ -112,6 +115,9 @@ public class UserController {
         if(endCount > page.getTotalElements()) {
             endCount = page.getTotalElements();
         }
+
+        // Create variable revertSortDir
+        String revertSortDir = sortDir.equals("asc") ? "desc" : "asc";
         // Display list user to screen.
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("currentPage", pageNum);
@@ -119,6 +125,9 @@ public class UserController {
         model.addAttribute("startCount", startCount);
         model.addAttribute("endCount", endCount);
         model.addAttribute("listUsers", listUsers);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("revertSortDir", revertSortDir);
         return "users";
     }
 }
