@@ -95,12 +95,14 @@ public class UserService {
         userRepository.updateEnableStatus(id, enable);
     }
 
-    public Page<User> listByPage(int pageNum, String sortField, String sortDir) {
+    public Page<User> listByPage(int pageNum, String sortField, String sortDir, String keyword) {
         Sort sort = Sort.by(sortField);
         sort = sortDir.equals("asc")? sort.ascending():sort.descending();
         Pageable pageable =  PageRequest.of(pageNum - 1, ConstantKey.USERS_PER_PAGE, sort);
-        Page<User> pageUser = userRepository.findAll(pageable);
-        return pageUser;
+        if (keyword != null) {
+            return userRepository.findAll(keyword,pageable);
+        }
+        return userRepository.findAll(pageable);
     }
 
     public void testInputStream() throws IOException {

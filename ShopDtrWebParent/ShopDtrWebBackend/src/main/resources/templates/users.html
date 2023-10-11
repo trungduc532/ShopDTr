@@ -71,6 +71,18 @@
         [[${message}]]
     </div>
     <div>
+        <form th:action="@{/users/page/1}" class="d-flex flex-row align-items-center flex-wrap m-3">
+            <input type="hidden" name="sortField" th:value="${sortField}"/>
+            <input type="hidden" name="sortDir" th:value="${sortDir}"/>
+            Filter:&nbsp;
+            <input type="search" name="keyword" th:value="${keyword}" class ="form-control" style="width: 180px" required/>
+            &nbsp;&nbsp;
+            <input type="submit" value="Search" class="btn btn-primary"/>
+            &nbsp;&nbsp;
+            <input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()"/>
+        </form>
+    </div>
+    <div>
         <table class="table table-responsive-xl table-bordered table-striped table-hover">
             <thead class="table-dark ">
             <tr >
@@ -173,7 +185,7 @@
     </div>
 
 <!-- Create pagination for the list item -->
-    <div>
+    <div th:if="${totalPages > 0}">
         <nav>
             <ul class="pagination justify-content-center">
                 <li th:class="${currentPage == 1? 'page-item disabled' : 'page-item'}">
@@ -235,6 +247,10 @@
             $("#confirmDialog").modal("show");
         });
     });
+
+    function clearFilter() {
+        window.location = "[[@{/users}]]"
+    }
 </script>
 </body>
 </html>
