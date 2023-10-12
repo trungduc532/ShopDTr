@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <th th:fragment="collumn_link(fieldName, columnLabel)">
+        <a class="text-white" style="text-decoration: none;"
+           th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${fieldName} + '&sortDir=' + ${sortField != fieldName ? sortDir : revertSortDir}}">
+            [[${columnLabel}]]
+        </a>
+        <span th:if="${sortField == fieldName}"
+              th:class="${sortDir == 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down'}"></span>
+    </th>
+    <a th:fragment="page-link(currentPage, labelName)"
+       class="page-link"
+       th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${labelName}]]
+    </a>
+
+</body>
+</html>
