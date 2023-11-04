@@ -66,6 +66,10 @@
     <div>
         <h2>Investor Management</h2>
         <a th:href="@{/users/new_user}">Create New User</a>
+        &nbsp;|&nbsp;
+        <a th:href="@{/users/exports/csv}">Export CSV</a>
+        &nbsp;|&nbsp;
+        <a th:href="@{/users/exports/excel}">Export Excel</a>
     </div>
     <div th:if="${message != null}" class="alert alert-success text-center">
         [[${message}]]

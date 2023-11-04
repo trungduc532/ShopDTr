@@ -5,6 +5,8 @@ import com.shopdtr.common.User;
 import com.shopdtr.web.backend.FileUploadUtils;
 import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.exception.UserNotFoundException;
+import com.shopdtr.web.backend.user.exporter.UserCsvExporter;
+import com.shopdtr.web.backend.user.exporter.UserExcelExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -142,5 +145,18 @@ public class UserController {
         model.addAttribute("revertSortDir", revertSortDir);
         model.addAttribute("keyword", keyword);
         return "users";
+    }
+
+    @GetMapping("users/exports/csv")
+    public void exportToCsv(HttpServletResponse response) throws IOException {
+        List<User> listUsers = userService.listUser();
+        UserCsvExporter userCsvExporter = new UserCsvExporter();
+        userCsvExporter.export(listUsers, response);
+    }
+    @GetMapping("users/exports/excel")
+    public void exportToExcel(HttpServletResponse response) throws IOException {
+        List<User> listUsers = userService.listUser();
+        UserExcelExporter userExcelExporter = new UserExcelExporter();
+        userExcelExporter.export(listUsers, response);
     }
 }
