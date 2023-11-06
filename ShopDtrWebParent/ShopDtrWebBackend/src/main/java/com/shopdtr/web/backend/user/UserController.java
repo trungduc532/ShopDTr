@@ -7,6 +7,7 @@ import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.exception.UserNotFoundException;
 import com.shopdtr.web.backend.user.exporter.UserCsvExporter;
 import com.shopdtr.web.backend.user.exporter.UserExcelExporter;
+import com.shopdtr.web.backend.user.exporter.UserPdfExporter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -158,5 +159,12 @@ public class UserController {
         List<User> listUsers = userService.listUser();
         UserExcelExporter userExcelExporter = new UserExcelExporter();
         userExcelExporter.export(listUsers, response);
+    }
+
+    @GetMapping("users/exports/pdf")
+    public void exportToPdf(HttpServletResponse response) throws IOException {
+        List<User> listUsers = userService.listUser();
+        UserPdfExporter userPdfExporter = new UserPdfExporter();
+        userPdfExporter.export(listUsers, response);
     }
 }
