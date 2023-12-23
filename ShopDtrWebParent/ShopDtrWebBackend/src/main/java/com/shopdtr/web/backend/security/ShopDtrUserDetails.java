@@ -59,4 +59,12 @@ public class ShopDtrUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.isEnable();
     }
+
+    /**
+     * Get full name of user
+     * @return
+     */
+    public String getFullname() {
+        return this.user.getFirstName() + " " + this.user.getLastName();
+    }
 }
