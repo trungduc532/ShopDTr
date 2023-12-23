@@ -34,7 +34,7 @@ public class User {
     @Column(length = 65)
     private String photos;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),

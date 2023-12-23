@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class ShopDtrUserDetails implements UserDetails {
 
@@ -19,7 +20,7 @@ public class ShopDtrUserDetails implements UserDetails {
     private User user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<Role> roles = (List<Role>) user.getRoles();
+        Set<Role> roles = user.getRoles();
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
         for (Role role : roles) {

@@ -54,13 +54,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
             http.authorizeRequests().
                     anyRequest().authenticated().
-                    and().formLogin().
+                    and().
+                    formLogin().
                     loginPage("/login").
+                    usernameParameter("email").
                     permitAll();
+        /* // Allow all transaction access in the website but doesn't need to log-in
+        http.authorizeRequests().anyRequest().permitAll();
+         */
     }
 
+
     /**
-     *
+     * Configure to view web doesn't need to authenticate
      * @param webSecurity
      */
     @Override
