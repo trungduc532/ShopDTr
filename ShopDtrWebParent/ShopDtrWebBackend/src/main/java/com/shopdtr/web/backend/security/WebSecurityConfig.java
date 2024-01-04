@@ -58,7 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     formLogin().
                     loginPage("/login").
                     usernameParameter("email").
-                    permitAll();
+                    permitAll().
+                    and().logout().permitAll();
         /* // Allow all transaction access in the website but doesn't need to log-in
         http.authorizeRequests().anyRequest().permitAll();
          */
