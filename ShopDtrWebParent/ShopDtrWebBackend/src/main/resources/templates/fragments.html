@@ -1,8 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head th:fragment="page_head(pageTitle)">
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+
+    <title>[[${pageTitle}]]</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/frontawesome/all.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/stype.css}">
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
 </head>
 <body>
     <th th:fragment="collumn_link(fieldName, columnLabel)">
@@ -17,6 +27,8 @@
        class="page-link"
        th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${labelName}]]
     </a>
-
+    <div th:fragment="footer_page" class="text-center" style="height: 2px;">
+        <p>THE VIETNAMESE INVESTOR - Copyright &copy; StockDtr</p>
+    </div>
 </body>
 </html>
