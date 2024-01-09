@@ -59,7 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     loginPage("/login").
                     usernameParameter("email").
                     permitAll().
-                    and().logout().permitAll();
+                    and().logout().permitAll().
+                    and().rememberMe().
+                    key("1234567890").tokenValiditySeconds(60*10);
         /* // Allow all transaction access in the website but doesn't need to log-in
         http.authorizeRequests().anyRequest().permitAll();
          */
