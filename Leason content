@@ -1,7 +1,12 @@
 60. Logout function
-- create a item is user login and create a dropdown contain item Logout
+- Create a item is user login and create a dropdown contain item Logout
 - Create form to logout action
 - Write js to submit logout action
     +) Tag span: display text, button... have additional css attribute
     +) Java scripts
 61. Code Refactor
+- Using fragments in the thymeleaf to with th:fragment="name('params')"; th:replace="file_name_fragments::name_fragment"
+63. Remember me
+- Spring security support remember me to hold the session of user.
+- rememberMe() function in WebConfig
+- key("1234567890") to to specify expiration of session - key is arbitrary(tùy ý)
