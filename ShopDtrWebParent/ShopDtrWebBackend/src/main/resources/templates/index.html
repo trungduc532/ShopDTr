@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments::page_head('HomePage - ShopDTR Admin')"></head>
 <body>
 <div class="container-fluid">
     <div th:replace="navigation::navigation_page"></div>
     <div>
-        <h1>THE VIETNAMESE INVESTOR</h1>
+        <h2>THE VIETNAMESE INVESTOR</h2>
+        Welcome
+        <a th:href="@{/account}" class="text-decoration-none"
+           sec:authentication="principal.fullname">
+        </a>
+        <span sec:authentication="principal.authorities"></span>
     </div>
     <div th:replace="fragments::footer_page"></div>
 </div>

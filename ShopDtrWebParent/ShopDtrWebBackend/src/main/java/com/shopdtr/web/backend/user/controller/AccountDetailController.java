@@ -1,8 +1,9 @@
-package com.shopdtr.web.backend.user;
+package com.shopdtr.web.backend.user.controller;
 
 import com.shopdtr.common.User;
 import com.shopdtr.web.backend.FileUploadUtils;
 import com.shopdtr.web.backend.security.ShopDtrUserDetails;
+import com.shopdtr.web.backend.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class AccountDetailController {
         final String email = userDetails.getUsername();
         final User user = userService.getUserByEmail(email);
         model.addAttribute("user", user);
-        return "account_form";
+        return "users/account_form";
     }
 
     @PostMapping("/account/update")
