@@ -1,10 +1,11 @@
-package com.shopdtr.web.backend.user;
+package com.shopdtr.web.backend.user.controller;
 
 import com.shopdtr.common.Role;
 import com.shopdtr.common.User;
 import com.shopdtr.web.backend.FileUploadUtils;
 import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.exception.UserNotFoundException;
+import com.shopdtr.web.backend.user.UserService;
 import com.shopdtr.web.backend.user.exporter.UserCsvExporter;
 import com.shopdtr.web.backend.user.exporter.UserExcelExporter;
 import com.shopdtr.web.backend.user.exporter.UserPdfExporter;
@@ -44,7 +45,7 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("roleList", roleList);
         model.addAttribute("pageTitle", "Create new user");
-        return "user_form";
+        return "users/user_form";
     }
 
     @PostMapping("/users/save")
@@ -88,7 +89,7 @@ public class UserController {
             model.addAttribute("user", user);
             model.addAttribute("pageTitle", "Update User (ID : " + id + ")");
             model.addAttribute("roleList", roleList);
-            return "user_form";
+            return "users/user_form";
         } catch (UserNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
             return "redirect:/users";
@@ -145,7 +146,7 @@ public class UserController {
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("revertSortDir", revertSortDir);
         model.addAttribute("keyword", keyword);
-        return "users";
+        return "users/users";
     }
 
     @GetMapping("users/exports/csv")
