@@ -60,6 +60,14 @@ public class ShopDtrUserDetails implements UserDetails {
         return user.isEnable();
     }
 
+    public void setFirstName(final String firstName){
+        user.setFirstName(firstName);
+    }
+
+    public void setLastName(final String lastName) {
+        user.setLastName(lastName);
+    }
+
     /**
      * Get full name of user
      * @return
