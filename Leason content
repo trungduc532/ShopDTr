@@ -10,3 +10,5 @@
 - Spring security support remember me to hold the session of user.
 - rememberMe() function in WebConfig
 - key("1234567890") to to specify expiration of session - key is arbitrary(tùy ý)
+64. Update account details
+<div class="col-sm-8 "> : Column in the form

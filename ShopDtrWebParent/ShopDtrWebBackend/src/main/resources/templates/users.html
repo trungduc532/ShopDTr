@@ -6,13 +6,16 @@
     <div th:replace="navigation::navigation_page"></div>
     <div>
         <h2>Investor Management</h2>
-        <a th:href="@{/users/new_user}">Create New User</a>
+        <a th:href="@{/users/new_user}" class="text-decoration-none fa fa-plus fa-2x" aria-hidden="true" style="color: gray">
+        </a>
         &nbsp;|&nbsp;
-        <a th:href="@{/users/exports/csv}">Export CSV</a>
+        <a th:href="@{/users/exports/csv}" class="text-decoration-none fa-solid fa-file-csv fa-2x" style="color: gray">
+        </a>
         &nbsp;|&nbsp;
-        <a th:href="@{/users/exports/excel}">Export Excel</a>
+        <a th:href="@{/users/exports/excel}" class="text-decoration-none fa-solid fa-file-excel fa-2x" style="color: gray">
+        </a>
         &nbsp;|&nbsp;
-        <a th:href="@{/users/exports/pdf}">Export PDF</a>
+        <a th:href="@{/users/exports/pdf}" class="fa-solid fa-file-pdf fa-2x text-decoration-none" style="color: gray"></a>
     </div>
     <div th:if="${message != null}" class="alert alert-success text-center">
         [[${message}]]
@@ -24,9 +27,13 @@
             Filter:&nbsp;
             <input type="search" name="keyword" th:value="${keyword}" class ="form-control" style="width: 180px" required/>
             &nbsp;&nbsp;
-            <input type="submit" value="Search" class="btn btn-primary"/>
+            <button class="btn btn-primary" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
             &nbsp;&nbsp;
-            <input type="button" value="Clear" class="btn btn-secondary" onclick="clearFilter()"/>
+            <button type="button" class="btn btn-secondary" onclick="clearFilter()">
+                <i class="fa-solid fa-eraser"></i>
+            </button>
         </form>
     </div>
     <div>
@@ -72,11 +79,11 @@
                 <td>[[${user.email}]]</td>
                 <td>[[${user.roles}]]</td>
                 <td>
-                    <a th:if="${user.enable} == true" class="fas fa-check-circle icon-green"
+                    <a th:if="${user.enable} == true" class="fas fa-check-circle icon-green text-decoration-none"
                        th:href="@{'/users/' + ${user.id} + '/enable/false'}"
                        title="Enable"
                     ></a>
-                    <a th:if="${user.enable} == false" class="fas fa-circle icon-dark"
+                    <a th:if="${user.enable} == false" class="fas fa-circle icon-dark text-decoration-none"
                        th:href="@{'/users/' + ${user.id} + '/enable/true'}"
                        title="Disable"
                     ></a>
