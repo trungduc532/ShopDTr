@@ -84,12 +84,14 @@
 
                 <!-- Show full name next to icon user -->
                 <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown"
-                       th:href="@{/account}"
+                    <a class="nav-link dropdown-toggle " data-toggle="dropdown" style="cursor: pointer"
                        sec:authentication="principal.fullname"></a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" id="logoutLink" href="">Log out&nbsp;
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <a class="dropdown-item" id="myProfile" th:href="@{/account}">
+                            <i class="fa-solid fa-address-card"></i>&nbsp;My profile
+                        </a>
+                        <a class="dropdown-item" id="logoutLink" href="">
+                            <i class="fa-solid fa-right-from-bracket"></i>&nbsp;Log out
                         </a>
                     </div>
                 </div>
