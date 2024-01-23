@@ -1,6 +1,6 @@
 package com.shopdtr.web.backend.user;
 
-import com.shopdtr.common.Role;
+import com.shopdtr.web.backend.entity.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

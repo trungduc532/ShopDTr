@@ -12,3 +12,8 @@
 - key("1234567890") to to specify expiration of session - key is arbitrary(tùy ý)
 64. Update account details
 <div class="col-sm-8 "> : Column in the form
+76. Code category entity and repository
+In the Spring Boot application. Spring Data JPA is used to interact(tương tác) with database.
+- Create table from code
+- Entity or Repository bean are created and manage by JPA entities. So when start application.
+We specify path(đường dẫn) to confirm package entity or repo by @EntityScan("package.entity") to management.

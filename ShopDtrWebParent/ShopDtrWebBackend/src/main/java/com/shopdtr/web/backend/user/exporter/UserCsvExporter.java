@@ -1,6 +1,6 @@
 package com.shopdtr.web.backend.user.exporter;
 
-import com.shopdtr.common.User;
+import com.shopdtr.web.backend.entity.User;
 import org.supercsv.io.CsvBeanWriter;
 import org.supercsv.io.ICsvBeanWriter;
 import org.supercsv.prefs.CsvPreference;

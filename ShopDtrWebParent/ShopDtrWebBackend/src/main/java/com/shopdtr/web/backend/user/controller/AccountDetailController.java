@@ -1,6 +1,6 @@
 package com.shopdtr.web.backend.user.controller;
 
-import com.shopdtr.common.User;
+import com.shopdtr.web.backend.entity.User;
 import com.shopdtr.web.backend.FileUploadUtils;
 import com.shopdtr.web.backend.security.ShopDtrUserDetails;
 import com.shopdtr.web.backend.user.UserService;

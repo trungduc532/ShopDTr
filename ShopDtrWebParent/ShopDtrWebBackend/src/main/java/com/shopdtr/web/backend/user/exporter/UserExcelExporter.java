@@ -1,6 +1,6 @@
 package com.shopdtr.web.backend.user.exporter;
 
-import com.shopdtr.common.User;
+import com.shopdtr.web.backend.entity.User;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.xssf.usermodel.*;
 

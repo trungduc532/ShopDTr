@@ -1,6 +1,6 @@
 package com.shopdtr.web.backend.security;
 
-import com.shopdtr.common.User;
+import com.shopdtr.web.backend.entity.User;
 import com.shopdtr.web.backend.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

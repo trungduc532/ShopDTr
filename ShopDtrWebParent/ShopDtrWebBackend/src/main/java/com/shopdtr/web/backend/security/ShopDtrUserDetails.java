@@ -1,7 +1,7 @@
 package com.shopdtr.web.backend.security;
 
-import com.shopdtr.common.Role;
-import com.shopdtr.common.User;
+import com.shopdtr.web.backend.entity.Role;
+import com.shopdtr.web.backend.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

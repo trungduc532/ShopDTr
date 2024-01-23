@@ -1,7 +1,8 @@
-package com.shopdtr.common;
+package com.shopdtr.web.backend.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Table(name = "users")
 @Getter
 @Setter
+@SpringBootApplication(scanBasePackages = "com.shopdtr.web.backend.entity")
 public class User {
 
     @Id

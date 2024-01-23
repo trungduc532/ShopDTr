@@ -1,4 +1,4 @@
-package com.shopdtr.common;
+package com.shopdtr.web.backend.entity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ROLE")
+@Table(name = "roles")
 @Getter
 @Setter
 public class Role {

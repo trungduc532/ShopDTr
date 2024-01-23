@@ -1,18 +1,17 @@
 package com.shopdtr.web.backend.user;
 
-import com.shopdtr.common.User;
+import com.shopdtr.web.backend.entity.User;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
+@SpringBootApplication(scanBasePackages = "com.shopdtr.web.backend.user")
 public interface UserRepository extends PagingAndSortingRepository<User, Integer> {
 
     @Query("Select u from User u where u.email = :email")
