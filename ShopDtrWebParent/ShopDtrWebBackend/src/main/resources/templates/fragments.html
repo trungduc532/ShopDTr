@@ -27,6 +27,11 @@
        class="page-link"
        th:href="@{'/users/page/' + ${currentPage} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${labelName}]]
     </a>
+
+    <a th:fragment="page-link-category(currentPage, labelName)"
+       class="page-link"
+       th:href="@{'/categories/page/' + ${currentPage} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}}">[[${labelName}]]
+    </a>
     <div th:fragment="footer_page" class="text-center" style="height: 2px;">
         <p>THE VIETNAMESE INVESTOR - Copyright &copy; StockDtr</p>
     </div>

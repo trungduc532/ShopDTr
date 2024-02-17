@@ -1,4 +1,4 @@
-package com.shopdtr.web.backend.user;
+package com.shopdtr.web.backend.repository;
 
 import com.shopdtr.web.backend.entity.User;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@SpringBootApplication(scanBasePackages = "com.shopdtr.web.backend.user")
 public interface UserRepository extends PagingAndSortingRepository<User, Integer> {
 
     @Query("Select u from User u where u.email = :email")

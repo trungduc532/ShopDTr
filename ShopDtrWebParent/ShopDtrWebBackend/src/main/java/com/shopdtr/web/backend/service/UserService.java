@@ -1,9 +1,11 @@
-package com.shopdtr.web.backend.user;
+package com.shopdtr.web.backend.service;
 
 import com.shopdtr.web.backend.entity.Role;
 import com.shopdtr.web.backend.entity.User;
 import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.exception.UserNotFoundException;
+import com.shopdtr.web.backend.repository.RoleRepository;
+import com.shopdtr.web.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

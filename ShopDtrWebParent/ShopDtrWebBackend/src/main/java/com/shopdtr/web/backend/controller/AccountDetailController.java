@@ -1,9 +1,9 @@
-package com.shopdtr.web.backend.user.controller;
+package com.shopdtr.web.backend.controller;
 
 import com.shopdtr.web.backend.entity.User;
 import com.shopdtr.web.backend.FileUploadUtils;
 import com.shopdtr.web.backend.security.ShopDtrUserDetails;
-import com.shopdtr.web.backend.user.UserService;
+import com.shopdtr.web.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;

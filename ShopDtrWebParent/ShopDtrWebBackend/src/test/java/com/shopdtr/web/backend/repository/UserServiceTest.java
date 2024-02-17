@@ -1,5 +1,6 @@
-package com.shopdtr.web.backend.user;
+package com.shopdtr.web.backend.repository;
 
+import com.shopdtr.web.backend.service.UserService;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

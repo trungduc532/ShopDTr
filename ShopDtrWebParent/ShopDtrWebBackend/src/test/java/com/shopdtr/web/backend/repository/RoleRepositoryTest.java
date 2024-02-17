@@ -1,4 +1,4 @@
-package com.shopdtr.web.backend.user;
+package com.shopdtr.web.backend.repository;
 
 import com.shopdtr.web.backend.entity.Role;
 import org.junit.jupiter.api.Test;
