@@ -1,4 +1,4 @@
-package com.shopdtr.web.backend.user;
+package com.shopdtr.web.backend.repository;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

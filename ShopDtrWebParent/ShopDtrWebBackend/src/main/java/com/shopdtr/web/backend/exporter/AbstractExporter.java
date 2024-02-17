@@ -1,4 +1,4 @@
-package com.shopdtr.web.backend.user.exporter;
+package com.shopdtr.web.backend.exporter;
 
 import javax.servlet.http.HttpServletResponse;
 import java.text.DateFormat;

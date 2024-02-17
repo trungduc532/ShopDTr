@@ -1,4 +1,4 @@
-package com.shopdtr.web.backend.user.exporter;
+package com.shopdtr.web.backend.exporter;
 
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
