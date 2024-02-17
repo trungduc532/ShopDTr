@@ -2,6 +2,7 @@ package com.shopdtr.web.backend.controller;
 
 import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.entity.Category;
+import com.shopdtr.web.backend.exporter.CategoryCSVExporter;
 import com.shopdtr.web.backend.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,8 +31,8 @@ public class CategoryController {
     @GetMapping("/categories/exports/csv")
     public void exportToCsv(HttpServletResponse response) throws IOException {
         List<Category> listCategory = categoryService.listCategory();
-//        UserCsvExporter userCsvExporter = new UserCsvExporter();
-//        userCsvExporter.export(listCategory, response);
+        CategoryCSVExporter categoryCSVExporter = new CategoryCSVExporter();
+        categoryCSVExporter.export(listCategory, response);
     }
 
     @GetMapping("/categories/page/{pageNum}")
