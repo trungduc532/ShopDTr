@@ -27,6 +27,14 @@ public class CategoryController {
         return listByPage(1, model, "id", "asc", null);
     }
 
+    @GetMapping("/categories/new_category")
+    public String newCategory(Model model) {
+        List<Category> listCategory = categoryService.getListCategory();
+        model.addAttribute(new Category());
+        model.addAttribute("listCategory", listCategory);
+        model.addAttribute("pageTitle", "Create new category");
+        return "categories/categories_form";
+    }
 
     @GetMapping("/categories/exports/csv")
     public void exportToCsv(HttpServletResponse response) throws IOException {
@@ -66,4 +74,5 @@ public class CategoryController {
         model.addAttribute("keyword", keyword);
         return "categories/categories";
     }
+
 }
