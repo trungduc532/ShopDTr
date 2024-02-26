@@ -38,19 +38,18 @@ public class CategoryService {
 
         for (Category category : categoriesDB) {
             if(category.getParent() == null) {
-                listCategory.add(new Category(category.getName()));
+                listCategory.add(Category.copyCategory(category));
 
                 Set<Category> children = category.getChildren();
 
                 for (Category subCategory: children) {
                     String name = "--" + subCategory.getName();
-                    listCategory.add(new Category(name));
+                    listCategory.add(Category.copyCategory(subCategory.getId(), name));
 
                     getListChildren(listCategory, subCategory, 1);
                 }
             }
         }
-
         return listCategory;
     }
 
@@ -74,7 +73,7 @@ public class CategoryService {
                 name += "--";
             }
             name += subCategory.getName();
-            listCategory.add(new Category(name));
+            listCategory.add(Category.copyCategory(subCategory.getId(), name));
             getListChildren(listCategory, subCategory, newLevel);
         }
     }
