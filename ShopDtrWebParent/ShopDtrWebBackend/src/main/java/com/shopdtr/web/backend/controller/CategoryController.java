@@ -1,5 +1,6 @@
 package com.shopdtr.web.backend.controller;
 
+import com.shopdtr.web.backend.FileUploadUtils;
 import com.shopdtr.web.backend.common.ConstantKey;
 import com.shopdtr.web.backend.entity.Category;
 import com.shopdtr.web.backend.exporter.CategoryCSVExporter;
@@ -9,8 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -75,4 +81,19 @@ public class CategoryController {
         return "categories/categories";
     }
 
+    @PostMapping("/categories/save")
+    public String saveCategory(final Category category,
+                               @RequestParam("fileImage") MultipartFile multipartFile,
+                               RedirectAttributes redirectAttributes) throws IOException {
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        category.setImage(fileName);
+
+        Category savedCategory = categoryService.save(category);
+
+        String uploadDir = "category-images/" + savedCategory.getId();
+        FileUploadUtils.saveFile(uploadDir, fileName, multipartFile);
+
+        redirectAttributes.addFlashAttribute("message", "The categories have been saved successfully.");
+        return "redirect:/categories";
+    }
 }

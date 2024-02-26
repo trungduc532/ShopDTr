@@ -1,5 +1,6 @@
 package com.shopdtr.web.backend.entity;
 
+import com.shopdtr.web.backend.service.CategoryService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -57,4 +58,19 @@ public class Category {
     }
 
     public Category(){}
+
+    public static Category copyCategory(Category category) {
+        Category copyCategory = new Category();
+        copyCategory.setId(category.getId());
+        copyCategory.setName(category.getName());
+        return copyCategory;
+    }
+
+    public static Category copyCategory(Integer id, String name) {
+        Category copyCategory = new Category();
+        copyCategory.setId(id);
+        copyCategory.setName(name);
+        return copyCategory;
+    }
+
 }
